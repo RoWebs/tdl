@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Untitled To-Do (Beta)</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="main.png">
+  <style>
+    /* Base styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #FDF6E3; /* Light background */
+      color: #333333; /* Text color */
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #FFD700; /* Yellow */
+      padding: 10px 20px;
+    }
+
+    /* Form and Task List */
+    form {
+      margin: 20px 0;
+    }
+
+    input {
+      padding: 10px;
+      border: 1px solid #EAEAEA;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #FFA500; /* Button color */
+      color: #FFFFFF;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    /* Task List Items */
+    li {
+      background-color: #E3F2FD; /* Box color */
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    /* Light Mode (Default) */
+    body.light-mode {
+      background-color: #FDF6E3; /* Light background */
+      color: #333333; /* Dark text */
+    }
+
+    /* Dark Mode */
+    body.dark-mode {
+      background-color: #333333; /* Dark background */
+      color: #FFFFFF; /* Light text */
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="Main icon.png" width="100" id="refresh-btn"/>
+    <h1>Untitled To-Do (Beta)</h1>
+    <button id="theme-toggle">Toggle Dark/Light Mode</button>
+  </header>
+  <main>
+    <section id="task-section">
+      <h2>Special Exhibition To-Do</h2>
+      <form id="task-form">
+        <input type="text" id="task-input" placeholder="Enter your task" required>
+        <button type="submit">Add Task</button>
+      </form>
+      <ul id="task-list"></ul>
+    </section>
+  </main>
+  <script>
+    // Add tasks to the list
+    document.getElementById('task-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const taskInput = document.getElementById('task-input');
+      const taskList = document.getElementById('task-list');
+    
+      if (taskInput.value) {
+        const taskItem = document.createElement('li');
+        taskItem.textContent = taskInput.value;
+    
+        // Add delete button
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'X';
+        deleteButton.style.backgroundColor = '#FF6347'; // Tomato red for delete
+        deleteButton.style.color = '#FFFFFF';
+        deleteButton.addEventListener('click', () => taskItem.remove());
+        taskItem.appendChild(deleteButton);
+    
+        taskList.appendChild(taskItem);
+        taskInput.value = ''; // Clear input field
+      }
+    });
+
+    // Toggle Dark and Light Mode using CSS classes
+    document.getElementById('theme-toggle').addEventListener('click', function() {
+      const body = document.body;
+      if (body.classList.contains('dark-mode')) {
+        body.classList.remove('dark-mode'); // Switch to Light Mode
+        body.classList.add('light-mode');
+      } else {
+        body.classList.remove('light-mode'); // Switch to Dark Mode
+        body.classList.add('dark-mode');
+      }
+    });
+    // Re-render a specific part of the app
+function refreshTaskList() {
+  const taskList = document.getElementById('task-list');
+  taskList.innerHTML = ''; // Clear the current tasks
+  // Add logic to fetch or re-render tasks
+}
+
+// Attach the refresh function to the button
+document.getElementById('refresh-btn').addEventListener('click', refreshTaskList);
+
+  </script>
+</body>
+</html>
